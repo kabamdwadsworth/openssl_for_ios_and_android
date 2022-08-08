@@ -93,24 +93,28 @@ function configure_make() {
 
     if [[ "${ARCH}" == "x86_64" ]]; then
 
-        ./configure --host=$(android_get_build_host "${ARCH}") --prefix="${PREFIX_DIR}" --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") --prefix="${PREFIX_DIR}" CFLAGS='-DOPENSSL_NO_UI_CONSOLE -DCURL_DISABLE_NETRC ' --disable-netrc --disable-cookies --disable-shared --enable-static --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     elif [[ "${ARCH}" == "x86" ]]; then
 
-        ./configure --host=$(android_get_build_host "${ARCH}") --prefix="${PREFIX_DIR}" --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") --prefix="${PREFIX_DIR}" CFLAGS='-DOPENSSL_NO_UI_CONSOLE -DCURL_DISABLE_NETRC ' --disable-netrc --disable-cookies --disable-shared --enable-static --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     elif [[ "${ARCH}" == "arm" ]]; then
 
-        ./configure --host=$(android_get_build_host "${ARCH}") --prefix="${PREFIX_DIR}" --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") --with-pic --prefix="${PREFIX_DIR}" CFLAGS='-DOPENSSL_NO_UI_CONSOLE -DCURL_DISABLE_NETRC ' --disable-netrc --disable-cookies --disable-shared --enable-static --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     elif [[ "${ARCH}" == "arm64" ]]; then
 
         # --enable-shared need nghttp2 cpp compile
-        ./configure --host=$(android_get_build_host "${ARCH}") --prefix="${PREFIX_DIR}" --disable-shared --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") --prefix="${PREFIX_DIR}" CFLAGS='-DOPENSSL_NO_UI_CONSOLE -DCURL_DISABLE_NETRC ' --disable-netrc --disable-cookies --disable-shared --enable-static --enable-ipv6 --with-ssl=${OPENSSL_OUT_DIR} --with-nghttp2=${NGHTTP2_OUT_DIR} >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     else
         log_error "not support" && exit 1
     fi
+
+    #remove HAVE_GETIFADDRS
+    cat lib/curl_config.h | grep -v HAVE_GETIFADDRS > tmp_config
+    cp tmp_config lib/curl_config.h
 
     log_info "make $ABI start..."
 
