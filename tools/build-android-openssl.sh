@@ -88,19 +88,19 @@ function configure_make() {
 
     if [[ "${ARCH}" == "x86_64" ]]; then
 
-        ./Configure android-x86_64 --prefix="${PREFIX_DIR}"
+        ./Configure no-asm android-x86_64 --prefix="${PREFIX_DIR}" -no-stdio -no-tests -no-shared -DOPENSSL_NO_STDIO -DOPENSSL_NO_UI_CONSOLE enable-ssl-trace 
 
     elif [[ "${ARCH}" == "x86" ]]; then
 
-        ./Configure android-x86 --prefix="${PREFIX_DIR}"
+        ./Configure no-asm android-x86 --prefix="${PREFIX_DIR}" -no-stdio -no-tests -no-shared -DOPENSSL_NO_STDIO -DOPENSSL_NO_UI_CONSOLE enable-ssl-trace 
 
     elif [[ "${ARCH}" == "arm" ]]; then
 
-        ./Configure android-arm --prefix="${PREFIX_DIR}"
+        ./Configure no-asm android-arm --prefix="${PREFIX_DIR}" -no-stdio -no-tests -no-shared -DOPENSSL_NO_STDIO -DOPENSSL_NO_UI_CONSOLE enable-ssl-trace 
 
     elif [[ "${ARCH}" == "arm64" ]]; then
 
-        ./Configure android-arm64 --prefix="${PREFIX_DIR}"
+        ./Configure no-asm android-arm64 --prefix="${PREFIX_DIR}" -no-stdio -no-tests -no-shared -DOPENSSL_NO_STDIO -DOPENSSL_NO_UI_CONSOLE enable-ssl-trace 
 
     else
         log_error "not support" && exit 1
