@@ -93,19 +93,19 @@ function configure_make() {
 
         # openssl1.1.1d can be set normally, 1.1.0f does not take effect
         ./Configure iphoneos-cross no-shared --prefix="${PREFIX_DIR}"
-        sed -ie "s!-fno-common!-fno-common -fembed-bitcode !" "Makefile"
+        sed -ie "s!-fno-common!-fno-common !" "Makefile"
 
     elif [[ "${ARCH}" == "arm64" ]]; then
 
         # openssl1.1.1d can be set normally, 1.1.0f does not take effect
         ./Configure iphoneos-cross no-shared --prefix="${PREFIX_DIR}"
-        sed -ie "s!-fno-common!-fno-common -fembed-bitcode !" "Makefile"
+        sed -ie "s!-fno-common!-fno-common !" "Makefile"
 
     elif [[ "${ARCH}" == "arm64e" ]]; then
 
         # openssl1.1.1d can be set normally, 1.1.0f does not take effect
         ./Configure iphoneos-cross no-shared --prefix="${PREFIX_DIR}"
-        sed -ie "s!-fno-common!-fno-common -fembed-bitcode !" "Makefile"
+        sed -ie "s!-fno-common!-fno-common !" "Makefile"
 
     else
         log_error "not support" && exit 1
