@@ -60,7 +60,7 @@ If you do not want to build it by yourself, you could download our prebuilt libr
 ### For iOS
 
 - Xcode info: Version 11.3.1 (11C504) (for reference only)
-- Build dependencies: todo
+- Build dependencies: pkg-config
 - Build order: 1.build openssl, 2.build nghttp2, 3.build curl (curl depend openssl and nghttp2)
 - only build static library(.a)
 - build sh cmd: for example:
@@ -75,7 +75,7 @@ $ sh build-ios-curl.sh
 
 - Android Studio info: 4.1, November 5, 2020 (for reference only)
 - Android NDK info: r21d
-- Build dependencies: todo
+- Build dependencies: pkg-config
 - Build order: 1.build openssl, 2.build nghttp2, 3.build curl (curl depend openssl and nghttp2)
 - build static library(.a) and dynamic library (exclude curl arm64-v8a)
 - env macro: for example:
